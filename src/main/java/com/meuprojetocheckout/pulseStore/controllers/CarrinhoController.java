@@ -1,8 +1,6 @@
 package com.meuprojetocheckout.pulseStore.controllers;
 
-import com.meuprojetocheckout.pulseStore.models.Carrinho;
-import com.meuprojetocheckout.pulseStore.models.ItemCarrinho;
-import com.meuprojetocheckout.pulseStore.models.Usuario;
+import com.meuprojetocheckout.pulseStore.models.*;
 import com.meuprojetocheckout.pulseStore.services.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +15,25 @@ public class CarrinhoController {
 
     // Endpoint para criar um carrinho
     @PostMapping
-    public ResponseEntity<Carrinho> criarCarrinho(@RequestBody Usuario usuario) {
-        Carrinho novoCarrinho = carrinhoService.criarCarrinho(usuario);
+    public ResponseEntity<Carrinho> criarCarrinho(@RequestBody CarrinhoRequest carrinhoRequest) {
+        Long usuarioId = carrinhoRequest.getUsuarioId();
+        Carrinho novoCarrinho = carrinhoService.criarCarrinho(usuarioId);
         return ResponseEntity.ok(novoCarrinho);
     }
 
     // Endpoint para adicionar um item ao carrinho
-    @PostMapping("/{carrinhoId}/itens")
-    public ResponseEntity<Void> adicionarItem(@PathVariable Long carrinhoId, @RequestBody ItemCarrinho item) {
+    @PostMapping("/{carrinhoId}/itens/{produtoId}/{quantidade}")
+    public ResponseEntity<Void> adicionarItem(@PathVariable Long carrinhoId, @PathVariable Long produtoId,@PathVariable int quantidade) {
+
+        Carrinho carrinho = new Carrinho();
+        carrinho.setId(carrinhoId);
+        Produto produto = new Produto();
+        produto.setId(produtoId);
+        ItemCarrinho item = new ItemCarrinho();
+        item.setCarrinho(carrinho);
+        item.setProduto(produto);
+        item.setQuantidade(quantidade);
+
         carrinhoService.adicionarItem(carrinhoId, item);
         return ResponseEntity.ok().build();
     }
