@@ -1,6 +1,6 @@
 package com.meuprojetocheckout.pulseStore.services;
 
-import com.meuprojetocheckout.pulseStore.models.Produto;
+import com.meuprojetocheckout.pulseStore.entity.Produto;
 import com.meuprojetocheckout.pulseStore.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.meuprojetocheckout.pulseStore.services;
 
 import com.meuprojetocheckout.pulseStore.Enum.Pagamento;
-import com.meuprojetocheckout.pulseStore.models.*;
+import com.meuprojetocheckout.pulseStore.entity.*;
 import com.meuprojetocheckout.pulseStore.repository.ItemVendaRepository;
 import com.meuprojetocheckout.pulseStore.repository.ProdutoRepository;
 import com.meuprojetocheckout.pulseStore.repository.VendaRepository;

@@ -1,8 +1,8 @@
 package com.meuprojetocheckout.pulseStore.services;
 
-import com.meuprojetocheckout.pulseStore.models.Carrinho;
-import com.meuprojetocheckout.pulseStore.models.ItemCarrinho;
-import com.meuprojetocheckout.pulseStore.models.Usuario;
+import com.meuprojetocheckout.pulseStore.entity.Carrinho;
+import com.meuprojetocheckout.pulseStore.entity.ItemCarrinho;
+import com.meuprojetocheckout.pulseStore.entity.Usuario;
 import com.meuprojetocheckout.pulseStore.repository.CarrinhoRepository;
 import com.meuprojetocheckout.pulseStore.repository.ItemCarrinhoRepository; // Supondo que você tenha um repositório para ItemCarrinho
 import com.meuprojetocheckout.pulseStore.repository.UsuarioRepository;

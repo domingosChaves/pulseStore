@@ -1,4 +1,4 @@
-package com.meuprojetocheckout.pulseStore.models;
+package com.meuprojetocheckout.pulseStore.entity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

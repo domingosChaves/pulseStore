@@ -1,6 +1,6 @@
 package com.meuprojetocheckout.pulseStore.services;
 
-import com.meuprojetocheckout.pulseStore.models.Usuario;
+import com.meuprojetocheckout.pulseStore.entity.Usuario;
 import com.meuprojetocheckout.pulseStore.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;

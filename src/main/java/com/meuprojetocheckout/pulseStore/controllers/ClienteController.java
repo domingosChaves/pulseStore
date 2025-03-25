@@ -1,7 +1,6 @@
 package com.meuprojetocheckout.pulseStore.controllers;
 
-import com.meuprojetocheckout.pulseStore.models.Carrinho;
-import com.meuprojetocheckout.pulseStore.models.Cliente;
+import com.meuprojetocheckout.pulseStore.entity.Cliente;
 import com.meuprojetocheckout.pulseStore.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

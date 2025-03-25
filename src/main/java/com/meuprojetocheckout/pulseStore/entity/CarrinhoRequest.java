@@ -1,4 +1,4 @@
-package com.meuprojetocheckout.pulseStore.models;
+package com.meuprojetocheckout.pulseStore.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

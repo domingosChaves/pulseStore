@@ -1,6 +1,6 @@
 package com.meuprojetocheckout.pulseStore.controllers;
 
-import com.meuprojetocheckout.pulseStore.models.Produto;
+import com.meuprojetocheckout.pulseStore.entity.Produto;
 import com.meuprojetocheckout.pulseStore.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

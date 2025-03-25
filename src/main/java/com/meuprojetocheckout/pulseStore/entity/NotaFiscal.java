@@ -1,4 +1,5 @@
-package com.meuprojetocheckout.pulseStore.models;
+package com.meuprojetocheckout.pulseStore.entity;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,26 +7,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "vendas")
+@Table(name = "notas_fiscais")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Venda {
+public class NotaFiscal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "venda_id", nullable = false)
+    private Venda venda;
 
-    private BigDecimal total;
+    private int numeroNota;
 
-    @Column(name = "data_venda")
-    private LocalDateTime dataVenda;
+    @Column(name = "data_emissao")
+    private LocalDateTime dataEmissao;
 }

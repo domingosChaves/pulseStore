@@ -1,32 +1,28 @@
-package com.meuprojetocheckout.pulseStore.models;
+package com.meuprojetocheckout.pulseStore.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
-@Table(name = "itens_venda")
+@Table(name = "itens_carrinho")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class ItemVenda {
+public class ItemCarrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "venda_id", nullable = false)
-    private Venda venda;
+    @JoinColumn(name = "carrinho_id", nullable = false)
+    private Carrinho carrinho;
 
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    private Produto produto;
+    private Produto produto; // Presumindo que você tenha uma classe Produto
 
     private int quantidade;
-    private BigDecimal preco;
+
 }

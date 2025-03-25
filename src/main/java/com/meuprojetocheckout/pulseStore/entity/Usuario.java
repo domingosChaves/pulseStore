@@ -1,4 +1,4 @@
-package com.meuprojetocheckout.pulseStore.models;
+package com.meuprojetocheckout.pulseStore.entity;
 
 import com.meuprojetocheckout.pulseStore.Enum.Papel;
 import jakarta.persistence.*;
