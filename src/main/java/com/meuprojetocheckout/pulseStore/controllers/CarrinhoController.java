@@ -27,8 +27,10 @@ public class CarrinhoController {
 
         Carrinho carrinho = new Carrinho();
         carrinho.setId(carrinhoId);
+
         Produto produto = new Produto();
         produto.setId(produtoId);
+
         ItemCarrinho item = new ItemCarrinho();
         item.setCarrinho(carrinho);
         item.setProduto(produto);
