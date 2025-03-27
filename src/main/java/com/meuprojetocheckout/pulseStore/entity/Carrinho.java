@@ -1,5 +1,6 @@
 package com.meuprojetocheckout.pulseStore.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +19,10 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @Column(name = "usuario_id")
+    private Long usuarioId; // armazena o ID do usuário associado
 
-    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCarrinho> itens = new ArrayList<>();
 
     // Métodos para adicionar/remover itens do carrinho
