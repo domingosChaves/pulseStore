@@ -1,5 +1,6 @@
 package com.meuprojetocheckout.pulseStore.controllers;
 
+import com.meuprojetocheckout.pulseStore.dto.ItemCarrinhoDTO;
 import com.meuprojetocheckout.pulseStore.entity.Carrinho;
 import com.meuprojetocheckout.pulseStore.entity.CarrinhoRequest;
 import com.meuprojetocheckout.pulseStore.services.CarrinhoService;
@@ -64,5 +65,11 @@ public class CarrinhoController {
     public ResponseEntity<Void> apagarCarrinho(@PathVariable Long carrinhoId) {
         carrinhoService.apagarCarrinho(carrinhoId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{carrinhoId}/produtos")
+    public ResponseEntity<List<ItemCarrinhoDTO>> obterProdutosNoCarrinho(@PathVariable Long carrinhoId) {
+        List<ItemCarrinhoDTO> itens = carrinhoService.obterProdutosNoCarrinho(carrinhoId);
+        return ResponseEntity.ok(itens);
     }
 }
