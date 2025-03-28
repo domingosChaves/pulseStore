@@ -14,15 +14,13 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder; // Para hash da senha
-
     public Usuario cadastrarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> consultarPorEmail(String email) {
-        return Optional.ofNullable(usuarioRepository.findByEmail(email));
+    // Método para buscar usuário por ID
+    public Optional<Usuario> consultarUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);
     }
 
     // Método para alterar dados ou recuperar senha
