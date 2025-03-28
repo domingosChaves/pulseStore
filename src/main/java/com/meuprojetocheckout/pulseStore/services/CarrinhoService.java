@@ -1,15 +1,19 @@
 package com.meuprojetocheckout.pulseStore.services;
 
+import com.meuprojetocheckout.pulseStore.dto.ItemCarrinhoDTO;
 import com.meuprojetocheckout.pulseStore.entity.Carrinho;
 import com.meuprojetocheckout.pulseStore.entity.ItemCarrinho;
+import com.meuprojetocheckout.pulseStore.entity.Produto;
 import com.meuprojetocheckout.pulseStore.repository.CarrinhoRepository;
 import com.meuprojetocheckout.pulseStore.repository.ItemCarrinhoRepository;
+import com.meuprojetocheckout.pulseStore.repository.ProdutoRepository;
 import com.meuprojetocheckout.pulseStore.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarrinhoService {
@@ -22,6 +26,9 @@ public class CarrinhoService {
 
     @Autowired
     private ItemCarrinhoRepository itemCarrinhoRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     // Criar um novo carrinho
     @Transactional
@@ -94,6 +101,24 @@ public class CarrinhoService {
     public void apagarCarrinho(Long carrinhoId) {
         Carrinho carrinho = consultarCarrinhoPorId(carrinhoId);
         carrinhoRepository.delete(carrinho); // Remove o carrinho do repositório
+    }
+
+    public List<ItemCarrinhoDTO> obterProdutosNoCarrinho(Long carrinhoId) {
+        Carrinho carrinho = consultarCarrinhoPorId(carrinhoId); // Método para obter o carrinho
+
+        return carrinho.getItens().stream()
+                .map(item -> {
+                    // Busca o produto pelo ID
+                    Produto produto = produtoRepository.findById(item.getProdutoId())
+                            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+                    return new ItemCarrinhoDTO(
+                            produto.getId(),
+                            produto.getNome(),
+                            produto.getPreco(),
+                            item.getQuantidade());
+                })
+                .collect(Collectors.toList());
     }
 
 }
