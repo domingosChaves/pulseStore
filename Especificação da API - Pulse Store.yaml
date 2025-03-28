@@ -1,0 +1,567 @@
+openapi: 3.0.1
+info:
+  title: Pulse Store API
+  description: API para gerenciar produtos, usuários, clientes, carrinhos, pedidos e transportadoras.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Servidor local
+
+paths:
+  /produtos:
+    post:
+      summary: Cadastrar Produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  preco:
+                    type: number
+                    format: float
+                  estoque:
+                    type: integer
+                  codigoBarras:
+                    type: string
+                  unidadeMedida:
+                    type: string
+                  categoria:
+                    type: string
+                  ncm:
+                    type: string
+                  cst:
+                    type: string
+                  pis:
+                    type: number
+                    format: float
+                  cofins:
+                    type: number
+                    format: float
+                  icms:
+                    type: number
+                    format: float
+      responses:
+        '200':
+          description: Produto cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+
+    get:
+      summary: Consultar Produtos
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+
+  /produtos/{id}:
+    get:
+      summary: Consultar Produto por Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Produto encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+        '404':
+          description: Produto não encontrado
+
+    put:
+      summary: Movimentar Estoque
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: quantidade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Estoque atualizado com sucesso
+
+  /usuarios/registrar:
+    post:
+      summary: Registrar Usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                senha:
+                  type: string
+                papel:
+                  type: string
+                criadoEm:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Usuário registrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+
+  /cliente:
+    post:
+      summary: Novo Cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                cpf:
+                  type: string
+                telefone:
+                  type: string
+                logradouro:
+                  type: string
+                numero:
+                  type: string
+                complemento:
+                  type: string
+                bairro:
+                  type: string
+                cidade:
+                  type: string
+                estado:
+                  type: string
+                cep:
+                  type: string
+                usuario:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                criadoEm:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Cliente criado com sucesso
+
+    get:
+      summary: Obter Cliente por Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cliente encontrado
+
+  /carrinhos:
+    post:
+      summary: Criar Carrinho
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuarioId:
+                  type: integer
+      responses:
+        '200':
+          description: Carrinho criado com sucesso
+/carrinhos/{id}:
+  get:
+    summary: Obter Carrinho por Id
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Carrinho encontrado
+
+  /carrinhos/{id}/itens/{produtoId}/{quantidade}:
+    post:
+      summary: Adicionar Item ao Carrinho
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: produtoId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: quantidade
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Item adicionado ao carrinho
+
+    delete:
+      summary: Remover Item do Carrinho
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Item removido com sucesso
+
+  /pedido:
+    post:
+      summary: Criar Pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cliente:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                carrinho:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                transportadora:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+      responses:
+        '200':
+          description: Pedido criado com sucesso
+
+  /pedido/{id}:
+    get:
+      summary: Obter Pedido por Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pedido encontrado
+
+  /transportadora:
+    post:
+      summary: Criar Transportadora
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                freteFixo:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Transportadora criada com sucesso
+
+    get:
+      summary: Obter Transportadoras
+      responses:
+        '200':
+          description: Lista de transportadoras
+
+/carrinhos/{id}/produtos:
+  get:
+    summary: Obter produtos no carrinho
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Lista de produtos no carrinho
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  quantidade:
+                    type: integer
+/transportadora:
+  get:
+    summary: Obter todas as Transportadoras
+    responses:
+      '200':
+        description: Lista de transportadoras
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transportadora'
+
+  /transportadora/{id}:
+    get:
+      summary: Obter Transportadora por Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Transportadora encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transportadora'
+
+components:
+  schemas:
+    # Definições das entidades como 'Produto', 'Usuario', 'Cliente', etc.
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+        preco:
+          type: number
+          format: float
+        estoque:
+          type: integer
+        codigoBarras:
+          type: string
+        unidadeMedida:
+          type: string
+        categoria:
+          type: string
+        ncm:
+          type: string
+        cst:
+          type: string
+        pis:
+          type: number
+          format: float
+        cofins:
+          type: number
+          format: float
+        icms:
+          type: number
+          format: float
+
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+          format: email
+        senha:
+          type: string
+        papel:
+          type: string
+        criadoEm:
+          type: string
+          format: date-time
+
+    Cliente:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        logradouro:
+          type: string
+        numero:
+          type: string
+        complemento:
+          type: string
+        bairro:
+          type: string
+        cidade:
+          type: string
+        estado:
+          type: string
+        cep:
+          type: string
+        usuario:
+          type: object
+          properties:
+            id:
+              type: integer
+        criadoEm:
+          type: string
+          format: date-time
+
+    Carrinho:
+      type: object
+      properties:
+        id:
+          type: integer
+        usuarioId:
+          type: integer
+
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+        cliente:
+          type: object
+          properties:
+            id:
+              type: integer
+        carrinho:
+          type: object
+          properties:
+            id:
+              type: integer
+        transportadora:
+          type: object
+          properties:
+            id:
+              type: integer
+
+    Transportadora:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        freteFixo:
+          type: number
+          format: float
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+
+  responses:
+    '200':
+      description: Exercício bem-sucedido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Produto'
+          examples:
+            example-1:
+              value:
+                id: 1
+                nome: "Produto A"
+                descricao: "Descrição do Produto A"
+                preco: 99.99
+                estoque: 100
+                codigoBarras: "1234567890123"
+                unidadeMedida: "unidade"
+                categoria: "Eletrônicos"
+
+    '404':
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            example-1:
+              value:
+                message: "Produto não encontrado"
+                code: 404
