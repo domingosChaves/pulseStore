@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:x="http://www.w3.org/2001/XMLSchema-instance"
+              name="nfe_template"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="555"
+              leftMargin="20"
+              rightMargin="20"
+              topMargin="20"
+              bottomMargin="20"
+              uuid="0fb626d7-8b92-4f5b-9b75-f7929579b205">
+
+    <field name="emitenteNome" class="java.lang.String"/>
+    <field name="emitenteCNPJ" class="java.lang.String"/>
+    <field name="destinatarioNome" class="java.lang.String"/>
+    <field name="destinatarioCPF" class="java.lang.String"/>
+    <field name="total" class="java.lang.Double"/>
+
+    <title>
+        <band height="50">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="40" />
+                <textFieldExpression><![CDATA["Nota Fiscal Eletrônica"]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <summary>
+        <band height="150">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="30" />
+                <textFieldExpression><![CDATA["Emitente: " + $F{emitenteNome}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="30" width="555" height="30" />
+                <textFieldExpression><![CDATA["CNPJ: " + $F{emitenteCNPJ}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="60" width="555" height="30" />
+                <textFieldExpression><![CDATA["Destinatário: " + $F{destinatarioNome}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="90" width="555" height="30" />
+                <textFieldExpression><![CDATA["CPF: " + $F{destinatarioCPF}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="120" width="555" height="30" />
+                <textFieldExpression><![CDATA["Total: R$ " + $F{total}]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+
+</jasperReport>
