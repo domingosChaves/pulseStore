@@ -31,6 +31,10 @@ public class ItemCarrinho {
     @JsonIgnore // Ignora essa referência ao serializar
     private Carrinho carrinho; // Relacionamento com a entidade Carrinho
 
+    @ManyToOne
+    @JoinColumn(name = "produto_id", insertable = false, updatable = false)
+    private Produto produto; // Relacionamento com a entidade Produto
+
     public ItemCarrinho(Long carrinhoId, Long produtoId, int quantidade) {
         this.carrinhoId = carrinhoId;
         this.produtoId = produtoId;
